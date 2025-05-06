@@ -1,0 +1,18 @@
+Danh sách các view:
+ - vw_DoanhThuTour (View thống kê doanh thu theo tour (Admin))
+ - vw_KhachHangThuongXuyen (View thống kê khách hàng thường xuyên (Admin))
+ - vw_LichSuDatTour (View xem lịch sử đặt tour của 1 khách hàng (Khách hàng))
+ - vw_ThongTinKhachHang (View xem toàn bộ thông tin khách hàng và tìm kiếm khách hàng (Nhân viên, admin))
+
+Danh sách các procedure:
+ - sp_TaoTour (Procedure tạo tour (Dành cho nhân viên và admin))
+ - sp_SuaTour (Procedure sửa tour (Dành cho nhân viên và admin))
+ - sp_XoaTour (Procedure xóa tour (Dành cho nhân viên và admin))
+ - sp_TimKiemTour (Procedure tìm kiếm tour (khách hàng, nhân viên, admin))
+ - sp_DangKyTaiKhoan (Procedure đăng ký tài khoản khách hàng (khách hàng, nhân viên, admin))
+ - sp_SuaNguoiDung (Procedure sửa thông tin người dùng (Admin))
+ - sp_XoaNguoiDung (Procedure xóa người dùng (Admin))
+ - sp_DatTour (Procedure đặt tour (khách hàng))
+ - sp_CapNhatTrangThaiThanhToan (Procedure cập nhật trạng thái thanh toán (Nhân viên, Admin)
+ - sp_ThemDanhGia (Procedure thêm đánh giá tour (Khách hàng))
+ - sp_ThongKeDoanhThu (Procedure thống kê doanh thu theo thời gian (Admin))
