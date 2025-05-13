@@ -107,15 +107,15 @@ BEGIN
 END;
 
 -- Tạo trigger tự động tạo thanh toán khi đặt tour
-CREATE TRIGGER trg_TaoThanhToan
-ON DatTour
-AFTER INSERT
-AS
-BEGIN
-    INSERT INTO ThanhToan (MaDatTour, SoTien, PhuongThucThanhToan)
-    SELECT MaDatTour, TongTien, N'Tiền mặt'
-    FROM inserted
-END;
+--CREATE TRIGGER trg_TaoThanhToan
+--ON DatTour
+--AFTER INSERT
+--AS
+--BEGIN
+--    INSERT INTO ThanhToan (MaDatTour, SoTien, PhuongThucThanhToan)
+--    SELECT MaDatTour, TongTien, N'Tiền mặt'
+--    FROM inserted
+--END;
 
 
 -- Trigger kiểm tra định dạng email
@@ -861,23 +861,59 @@ INSERT INTO NguoiDung (TenDangNhap, MatKhau, HoTen, Email, MaVaiTro)
 VALUES ('admin', 'admin123', 'Administrator', 'admin@tourly.com', 1);
 
 -- Phân quyền người dùng
+--- Admin
 CREATE LOGIN admin WITH PASSWORD = 'admin123';
 CREATE USER admin FOR LOGIN admin;
 EXEC sp_addrolemember 'db_owner', 'admin';
+--- View:
+GRANT SELECT ON vw_DoanhThuTour TO admin; 
+GRANT SELECT ON vw_KhachHangThuongXuyen TO admin
+GRANT SELECT ON vw_ThongTinKhachHang TO admin
+--- Procedure:
+GRANT EXECUTE ON sp_TaoTour TO admin
+GRANT EXECUTE ON sp_SuaTour TO admin
+GRANT EXECUTE ON sp_XoaTour TO admin
+GRANT EXECUTE ON sp_TimKiemTour TO admin
+GRANT EXECUTE ON sp_DangKyTaiKhoan TO admin
+GRANT EXECUTE ON sp_SuaNguoiDung TO admin
+GRANT EXECUTE ON sp_XoaNguoiDung TO admin
+GRANT EXECUTE ON sp_CapNhatTrangThaiThanhToan TO admin
+GRANT EXECUTE ON sp_ThongKeDoanhThu TO admin
 
+--- Nhân viên:
 CREATE LOGIN staff WITH PASSWORD = 'staff123';
 CREATE USER staff FOR LOGIN staff;
+---- Bảng:
 GRANT SELECT, INSERT, UPDATE ON Tour TO staff;
 GRANT SELECT, INSERT, UPDATE ON DatTour TO staff;
 GRANT SELECT, INSERT, UPDATE ON ThanhToan TO staff;
 GRANT SELECT ON NguoiDung TO staff;
+--- View:
+GRANT SELECT ON vw_ThongTinKhachHang TO staff;
+--- Procedure:
+GRANT EXECUTE ON sp_TaoTour TO staff
+GRANT EXECUTE ON sp_SuaTour TO staff
+GRANT EXECUTE ON sp_XoaTour TO staff
+GRANT EXECUTE ON sp_TimKiemTour TO staff
+GRANT EXECUTE ON sp_DangKyTaiKhoan TO staff
+GRANT EXECUTE ON sp_CapNhatTrangThaiThanhToan TO staff
 
+
+--- Người dùng
 CREATE LOGIN customer WITH PASSWORD = 'customer123';
 CREATE USER customer FOR LOGIN customer;
+---- Bảng:
 GRANT SELECT ON Tour TO customer;
 GRANT SELECT, INSERT ON DatTour TO customer;
 GRANT SELECT ON ThanhToan TO customer;
 GRANT SELECT, INSERT ON DanhGia TO customer;
+---- View:
+GRANT SELECT ON vw_LichSuDatTour TO customer;
+---- Procedure:
+GRANT EXECUTE ON sp_TimKiemTour TO customer
+GRANT EXECUTE ON sp_DangKyTaiKhoan TO customer
+GRANT EXECUTE ON sp_DatTour TO customer
+GRANT EXECUTE ON sp_ThemDanhGia TO customer
 
 
 -- THÊM DỮ LIỆU
